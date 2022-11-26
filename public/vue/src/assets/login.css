@@ -1,0 +1,67 @@
+/* #all{
+    
+} */
+h1{
+    color: rgb(245, 245, 245) !important;
+    font-size: 2.5rem;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-shadow:rgb(255, 255, 255) 1px 1px 1px ,rgba(56, 2, 63, 0.76) 1px 2px 2px;
+}
+#container_login{
+    display: flex;
+    justify-content: center;
+    
+}
+#login{
+    width: 24rem;
+    padding: 1rem;
+    margin-top: 2rem;
+    border: 1px solid rgb(58, 4, 83);
+    border-radius: 1rem;
+    background-color: rgba(137, 43, 226, 0.363);
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    color: rgb(95, 3, 95);
+}
+.ForgotPassword{
+    width: max-content;
+    color: rgb(255, 255, 255);
+    border-radius: 3px ;
+}
+
+.ForgotPassword:hover{
+    background-color: rgb(254, 254, 254);
+    color: rgb(95, 3, 95);
+}
+button{
+    height: max-content;
+    background-color:rgb(255, 255, 255) !important;
+    color:rgb(66, 4, 78);
+    border: none;
+    font-size:xx-large;
+    border-radius: 0.7rem;
+}
+button:hover{
+    /* transform: scale(1.05); */
+    background-color: rgb(112, 50, 128);
+    border: 1px solid white;
+
+}
+button:active{
+    transform: scale(0.99);
+    background-color:rgb(74, 12, 90) !important;
+    color: white;
+}
+label{
+    color: white;
+}
+input{
+    color: black;
+    border-radius: 0.7rem;
+    height: 2rem;
+}
+p, span {
+    color: white;
+}
