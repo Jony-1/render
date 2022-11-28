@@ -56,11 +56,11 @@ class DatabaseSeeder extends Seeder
         User::insert(
             [
                 'roles_id' =>  3, //admin role id
-                'name' =>  'Yisas', //default name
-                'email' => 'jesuscolla14@gmail.com', //default email
+                'name' =>  'Karolina', //default name
+                'email' => 'ksegura1@misena.edu.co', //default email
                 'email_verified_at' => date("Y/m/d"), //verified today
                 'created_at' => date("Y/m/d"), //created today
-                'password' => Hash::make('yisas123') //default admin password: admin123
+                'password' => Hash::make('karolina123') //default admin password: admin123
             ]
         );
         User::factory(10)->create();
