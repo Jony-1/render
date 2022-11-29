@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EmailVerificationController;
 use App\Http\Controllers\Api\NewPasswordController;
 use App\Http\Controllers\ArticlesController;
+use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\ConfigController;
 use App\Http\Controllers\imagescontroller;
 use App\Http\Controllers\SalesController;
@@ -28,8 +29,8 @@ use PharIo\Manifest\Url;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route:: post('/register', [AuthController::class, 'register'])->name('register');
-Route:: post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 // Route::middleware('auth:sanctum')->get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 //*reset password
@@ -48,13 +49,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 
-Route:: middleware(['auth:sanctum'])->group(function(){
+Route::middleware(['auth:sanctum'])->group(
+    function () {
 
-Route::get('/user', [AuthController::class, 'user']);
-
-}
+        Route::get('/user', [AuthController::class, 'user']);
+    }
 );
 Route::resource('articles', ArticlesController::class);
+Route::resource('categories', categoriesController::class);
 Route::resource('/users', Usercontroller::class);
 Route::resource('sales', SalesController::class);
 Route::resource('config', ConfigController::class);

@@ -206,7 +206,6 @@ class ArticlesController extends Controller
             return '/storage' . '/' . $name; //uploads/46464611435281365.jpg
 
         } else {
-
             return null;
         }
     }
