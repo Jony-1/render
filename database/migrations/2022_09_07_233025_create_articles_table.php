@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->string('description', 100);
             $table->string('image')->nullable();
             $table->boolean('active');
-        
+    
             $table->timestamps();
         });
     }
