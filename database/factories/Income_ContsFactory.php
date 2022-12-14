@@ -14,7 +14,7 @@ class Income_ContsFactory extends Factory
     public function definition()
     {
         return [
-            'articles_id' => $this->faker->numberBetween(1, 100),
+            'articles_id' => $this->faker->numberBetween(1, 1),
             'incomes_id' => $this->faker->numberBetween(1, 10),
             'amount' => $this->faker->numberBetween(1, 100),            
             'price' => $this->faker->numberBetween(100000, 1000000),

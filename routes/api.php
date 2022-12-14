@@ -56,6 +56,7 @@ Route::middleware(['auth:sanctum'])->group(
     }
 );
 Route::resource('articles', ArticlesController::class);
+Route::post('articles/update/{article}', [ArticlesController::class], 'update');
 Route::resource('categories', categoriesController::class);
 Route::resource('/users', Usercontroller::class);
 Route::resource('sales', SalesController::class);

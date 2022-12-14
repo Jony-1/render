@@ -20,7 +20,7 @@ class ArticleFactory extends Factory
             'selling_price' => $this->faker->numberBetween(100000, 1000000),
             'stock' => $this->faker->numberBetween(0, 10),
             'description' => $this->faker->text($maxNbChars = 100),
-            'image' => 'public/uploads/default.jpg',
+            'image' => "../../../../public/uploads/default.jpg",
             'active' => true,  
             //
         ];

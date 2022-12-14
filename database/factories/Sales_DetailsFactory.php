@@ -14,7 +14,7 @@ class Sales_DetailsFactory extends Factory
     public function definition()
     {
         return [
-            'articles_id' => $this->faker->numberBetween(1, 100),
+            'articles_id' => $this->faker->numberBetween(1, 1),
             'users_id' => $this->faker->numberBetween(1, 10),
             'sales_id' => $this->faker->numberBetween(1, 10),
             'amount' => $this->faker->numberBetween(1, 100),            

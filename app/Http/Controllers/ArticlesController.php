@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Article;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 // use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -16,7 +19,7 @@ class ArticlesController extends Controller
     public function index()
     {
         $articles = Article::all();
-        return response()->json($articles); 
+        return response()->json($articles);
         //
     }
 
@@ -45,7 +48,7 @@ class ArticlesController extends Controller
             'name' => 'required|string',
             'code' => 'required|string',
             'stock' => 'required|string',
-            'description' => 'required|string',           
+            'description' => 'required|string',
         ]);
 
         //Save image in server and get its url
@@ -53,7 +56,7 @@ class ArticlesController extends Controller
 
         $article = Article::create([
             'image' => $url_image,
-            'name' => $request->name, 
+            'name' => $request->name,
             'code' => $request->code,
             'categories_id' => $request->categories_id,
             'selling_price' => $request->selling_price,
@@ -68,7 +71,6 @@ class ArticlesController extends Controller
                 'new_article' => $article //Nuevo usuario creado
             ]
         );
-        
     }
 
     /**
@@ -79,18 +81,18 @@ class ArticlesController extends Controller
      */
     public function show(Request $request)
     {
-     
+
         // return response()->json();
         //
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\cr  $cr
      * @return \Illuminate\Http\Response
      */
-    public function edit( $cr)
+    public function edit($cr)
     {
         //
     }
@@ -108,51 +110,66 @@ class ArticlesController extends Controller
         // return response('Response:'.$request);
 
         $article = Article::find($id);
-        // return response('Response:'.$request);
-        if ($request->hasfile('image')) {
-            return response('Response:'.$request);
-            $archivo = $request->file('image');
-            $nuevo_nombre = uniqid() . time() . '.' . $archivo->getClientOriginalExtension(); //46464611435281365.jpg
-            $direccion = public_path() . '/uploads'; // http://127.0.0.1:8000/public
-
-            // $archivo->move($direccion, $nuevo_nombre, );
-            $archivo->storeAs("vue/public/uploads/", $nuevo_nombre, 'art_image');
-            $direccion = 'uploads/' . $nuevo_nombre; //uploads/46464611435281365.jpg
-
-            // $article->image= 'vue/public/'.$article->image;
-            if (Storage::disk('art_image')->exists($article->image)) {
-    
-                // return response('what delete(?)');
-                Storage::disk('art_image')->delete($article->image);
-    
-                // return response('Se borro la foto chino');   
-            }
-
-        } else {
 
 
-            $direccion = 'public/uploads/default.jpg';
-            // return response('ElseXD');
-            
-        } 
+        if ($request->updated) {
 
+            $request->validate([
+                'image' => 'nullable|image'
+            ]);
 
-      
-        
-      
+            //Eliminar la imagen anterior
+            if (File::exists(public_path($article->image)))
+                File::delete(public_path($article->image));
 
-        
-        // $article = Article::find($id);
-        $article->image=$direccion;
-        $article->name=$request->name;
-        $article->code=$request->code;
-        $article->categories_id=$request->categories_id;
-        $article->selling_price=$request->selling_price;
-        $article->stock=$request->stock;
-        $article->description=$request->description;
-        $article->active=$request->active;
+            $article->image = $this->validate_image($request);
+
+        }
+        $article->name = $request->name;
+        // $article->code = $request->code;
+        // $article->categories_id = $request->categories_id;
+        // $article->selling_price = $request->selling_price;
+        // $article->stock = $request->stock;
+        // $article->description = $request->description;
+        // $article->active = $request->active;
 
         $article->save();
+
+        // if ($request->hasfile('image')) {
+        //     return response('Response:'.$request);
+        //     $archivo = $request->file('image');
+        //     $nuevo_nombre = uniqid() . time() . '.' . $archivo->getClientOriginalExtension(); 
+        //     $direccion = public_path() . '/uploads'; 
+
+
+        //     $archivo->storeAs("vue/public/uploads/", $nuevo_nombre, 'art_image');
+        //     $direccion = 'uploads/' . $nuevo_nombre; 
+
+
+        //     if (Storage::disk('art_image')->exists($article->image)) {
+
+
+        //         Storage::disk('art_image')->delete($article->image);
+
+
+        //     }
+
+        // } else {
+
+
+        //     $direccion = 'public/uploads/default.jpg';
+
+
+        // } 
+
+
+
+
+
+
+
+        // $article = Article::find($id);
+
 
         // $article->fill($request->all())->save(); 
         // return response()->json([
@@ -175,9 +192,9 @@ class ArticlesController extends Controller
 
         $article = Article::find($id);
         // $article->image= 'hola'.$article->image;
-        
+
         // return response('Entramos, a ver: '.$article->image);
-        $article->image= 'vue/public/'.$article->image;
+        $article->image = 'vue/public/' . $article->image;
         // return response('Entramos, a ver: '.$article->image);
         if (Storage::disk('art_image')->exists($article->image)) {
 
@@ -186,9 +203,9 @@ class ArticlesController extends Controller
 
             // return response('Se borro la foto chino');   
         }
-       
 
-        $article ->delete();
+
+        $article->delete();
         return response('borrado');
         // $articles->delete();
         // return response()->json([
@@ -198,7 +215,8 @@ class ArticlesController extends Controller
         //
     }
 
-    public function validate_image($request) {
+    public function validate_image($request)
+    {
 
         if ($request->hasfile('image')) {
             $name = uniqid() . time() . '.' . $request->file('image')->getClientOriginalExtension(); //46464611435281365.jpg

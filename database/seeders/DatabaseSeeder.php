@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
         ]);
         Categorie::factory(4)->create();
         Provider::factory(10)->create();
-        Article::factory(100)->create();
+        Article::factory(1)->create();
         incomes::factory(10)->create();
         Income_conts::factory(10)->create();
         User::insert(
