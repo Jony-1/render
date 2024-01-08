@@ -49,6 +49,6 @@ RUN chown -R www-data:www-data /var/www
 # Cambiar los permisos del directorio de almacenamiento
 RUN chmod -R 755 /var/www/storage
 
-# Exponer el puerto 9000 y empezar
-EXPOSE 9000
-CMD ["php-fpm"]
+# Exponer el puerto 8000 y empezar
+EXPOSE 8000
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
