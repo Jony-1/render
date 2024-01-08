@@ -15,7 +15,8 @@ RUN apt-get update && apt-get install -y \
     vim \
     unzip \
     git \
-    curl
+    curl \
+    nginx
 
 # Limpiar caché
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -49,7 +50,9 @@ RUN chown -R www-data:www-data /var/www
 # Cambiar los permisos del directorio de almacenamiento
 RUN chmod -R 755 /var/www/storage
 
-# Exponer el puerto 8000 y empezar
-EXPOSE 8000
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Copiar la configuración de Nginx
+COPY ./nginx.conf /etc/nginx/sites-available/default
 
+# Exponer el puerto 80 y empezar
+EXPOSE 80
+CMD service nginx start && php-fpm
